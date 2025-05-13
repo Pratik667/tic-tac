@@ -4,16 +4,19 @@ import GameBoard from './components/GameBoard'
 import './App.css'
 
 function App() {
-
+  const [activePlayer, setActivePlayer] = useState('O'); 
+  function handleSelectSquare() {
+    setActivePlayer(current => current === 'X' ? 'O' : 'X');
+  }
   return (
     <main>
       <h1>React Tic-Tac-Toe</h1>
       <div id="game-container">
-          <ol id='players'>
-            <Player name='player 1' symbol='X' />
-            <Player name='player 2' symbol='O' />
+          <ol id='players' className='highlight-player'>
+            <Player initialName='player 1' symbol='X' isActive={activePlayer === 'X'}/>
+            <Player initialName='player 2' symbol='O' isActive={activePlayer === 'O'}/>
           </ol>
-          <GameBoard />
+          <GameBoard onSelectSquare={handleSelectSquare} activePlayerSymbol={activePlayer}/>
       </div>
       LOG
     </main>
